@@ -182,9 +182,9 @@ public class AddingStoneController {
                     type = StoneType.Драгоценный;
                 }
 
-
                 Stone stone = new Stone(title, weight, price, color, type, transparence);
                 remoteClient.addStoneOnStock(stone);
+                remoteClient.printMessageOnServer("Был добавлен камень! Название:"+title);
             } catch (InvalidFieldValueException e) {
                 System.out.println("Ошибка вводимых значений!");
             } catch (NumberFormatException ex) {

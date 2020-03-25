@@ -171,6 +171,7 @@ public class CreateNecklaceBaseController {
             Metal metal = remoteClient.getMetals().get(metallNum);
             NecklaceBase necklaceBase = new NecklaceBase(title, weight, price, metal, length, "Ожерелье");
             remoteClient.addNecklaceBaseOnStock(necklaceBase);
+            remoteClient.printMessageOnServer("Была добавлена основа для ожерелья! Название:"+title);
         } catch (InvalidFieldValueException e) {
             System.out.println("Ошибка вводимых значений!");
         } catch (NumberFormatException ex) {

@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 
 import java.io.*;
+import java.net.Inet4Address;
 import java.rmi.RemoteException;
 import java.util.InputMismatchException;
 
@@ -35,7 +36,6 @@ public class MainFX extends Application {
             System.out.println("START");
             myStage.show();
 
-
         }catch (RemoteException e ){
             System.out.println("wtf");
         }  catch (FileNotFoundException e) {
@@ -47,6 +47,11 @@ public class MainFX extends Application {
         }
     }
 
+    @Override
+    public void stop() throws Exception {
+        remoteClient.printMessageOnServer("\u001B[34m"+"\nПользователь с IPv4:"+
+                Inet4Address.getLocalHost().getHostAddress()+" вышел из системы.\n"+"\u001B[0m");
+    }
 
     public static void main(String[] args) {
         launch(args);

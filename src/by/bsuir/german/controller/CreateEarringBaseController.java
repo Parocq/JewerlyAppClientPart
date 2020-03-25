@@ -177,6 +177,7 @@ public class CreateEarringBaseController {
 
             EarringBase earringBase = new EarringBase(title, weight, price, metal, paired,"Серьги");
             remoteClient.addEarringBaseOnStock(earringBase);
+            remoteClient.printMessageOnServer("Была добавлена основа для серег! Название:"+title);
         } catch (InvalidFieldValueException e) {
             System.out.println("Ошибка вводимых значений!");
         } catch (NumberFormatException ex) {

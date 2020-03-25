@@ -3,6 +3,8 @@ package by.bsuir.german.service;
 import by.bsuir.german.entity.*;
 import by.bsuir.german.interfaces.ITitle;
 
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -18,7 +20,11 @@ public class RemoteClient implements IRemoteServer {
         try {
             Registry registry = LocateRegistry.getRegistry("localhost");
             myReestr = (IRemoteServer) registry.lookup("String");
+            printMessageOnServer("\u001B[34m"+"\nВ систему зашел пользователь с IPv4:"
+                    +Inet4Address.getLocalHost().getHostAddress()+"\n"+"\u001B[0m");
         } catch (RemoteException | NotBoundException e) {
+            e.printStackTrace();
+        } catch (UnknownHostException e) {
             e.printStackTrace();
         }
     }
@@ -277,5 +283,13 @@ public class RemoteClient implements IRemoteServer {
             e.printStackTrace();
         }
         return s;
+    }
+
+    public void printMessageOnServer(String s){
+        try {
+            myReestr.printMessageOnServer(s);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 }

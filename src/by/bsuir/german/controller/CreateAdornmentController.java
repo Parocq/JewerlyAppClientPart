@@ -176,8 +176,9 @@ public class CreateAdornmentController {
     void AddEarringBase(ActionEvent event) {
         try {
             String title = nameField.getText();
-            List<Stone> stonesToUse;
-            stonesToUse = getStonesToUse(prepareString(addDot(choosedStones.getText())));
+            List<Stone> stonesToUse = new ArrayList<>();
+            if (choosedStones.getText().isEmpty() && remoteClient.getStones().isEmpty()){
+            } else stonesToUse = getStonesToUse(prepareString(addDot(choosedStones.getText())));
 
             switch (getType()) {
                 case 1:
@@ -198,6 +199,7 @@ public class CreateAdornmentController {
                 default:
                     break;
             }
+            remoteClient.printMessageOnServer("Было добавлено украшение! Название:"+title);
         } catch (InvalidFieldValueException e) {
             System.out.println("Ошибка вводимых значений!");
         } catch (NumberFormatException ex) {

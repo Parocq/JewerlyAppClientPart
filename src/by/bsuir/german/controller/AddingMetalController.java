@@ -162,12 +162,12 @@ public class AddingMetalController {
 
             Metal metal = new Metal(title, weight, price, sample);
             remoteClient.addMetalOnStock(metal);
+            remoteClient.printMessageOnServer("Был добавлен металл! Название:"+title);
         } catch (InvalidFieldValueException e) {
             System.out.println("Ошибка вводимых значений!");
         } catch (NumberFormatException ex) {
             System.out.println("Ошибка форматов! / Не введены все значения!");
         }
-
     }
 
     private void checkValues(double weight, double price) throws InvalidFieldValueException {

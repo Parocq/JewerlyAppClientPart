@@ -176,6 +176,7 @@ public class CreateRingBaseController {
 
             RingBase ringBase = new RingBase(title, weight, price, metal, diametr,"Кольцо");
             remoteClient.addRingBaseOnStock(ringBase);
+            remoteClient.printMessageOnServer("Была добавлена основа для кольца! Название:"+title);
         } catch (InvalidFieldValueException e) {
             System.out.println("Ошибка вводимых значений!");
         } catch (NumberFormatException ex) {
