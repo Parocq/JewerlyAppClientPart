@@ -1,6 +1,8 @@
 package by.bsuir.german.entity.enumeration;
 
-public enum StoneType {
+import java.io.Serializable;
+
+public enum StoneType implements Serializable {
     Драгоценный,
     Полудрагоценный
 }

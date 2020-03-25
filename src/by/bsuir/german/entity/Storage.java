@@ -17,7 +17,7 @@ public class Storage implements Serializable {
     private List<NecklaceBase> necklaceBases;// = new ArrayList<>();
     private List<EarringBase> earringBases;// = new ArrayList<>();
 
-    private ObservableList<AdornmentExtended> adornmentExtendedList;
+//    private ObservableList<AdornmentExtended> adornmentExtendedList;
 
     public Storage(List<Stone> stones, List<Metal> metals, List<Adornment> adornments,
                    List<RingBase> ringBases, List<NecklaceBase> necklaceBases, List<EarringBase> earringBases) {
@@ -36,10 +36,10 @@ public class Storage implements Serializable {
         this.ringBases = new ArrayList<>();
         this.necklaceBases = new ArrayList<>();
         this.earringBases = new ArrayList<>();
-        this.adornmentExtendedList = FXCollections.observableArrayList();
+//        this.adornmentExtendedList = FXCollections.observableArrayList();
     }
 
-    public ObservableList<AdornmentExtended> getAdornmentExtendedList () {return  adornmentExtendedList;}
+//    public ObservableList<AdornmentExtended> getAdornmentExtendedList () {return  adornmentExtendedList;}
 
     public List<Stone> getStones() {
         return stones;

@@ -3,7 +3,9 @@ package by.bsuir.german.entity.tabled;
 import by.bsuir.german.entity.Adornment;
 import by.bsuir.german.service.RemoteClient;
 
-public class AdornmentExtended {
+import java.io.Serializable;
+
+public class AdornmentExtended implements Serializable {
     private String title;
     private String type;
     private double price;

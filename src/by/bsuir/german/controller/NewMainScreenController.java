@@ -2,11 +2,14 @@ package by.bsuir.german.controller;
 
 import java.io.*;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import by.bsuir.german.MainFX;
+import by.bsuir.german.entity.Adornment;
 import by.bsuir.german.entity.Storage;
 import by.bsuir.german.entity.tabled.AdornmentExtended;
+import by.bsuir.german.service.Converter;
 import by.bsuir.german.service.RemoteClient;
 import by.bsuir.german.service.Serialization;
 import javafx.collections.ObservableList;
@@ -26,10 +29,11 @@ import javafx.stage.Stage;
 
 public class NewMainScreenController {
 
-//    private IO io;
-    private RemoteClient remoteClient;
+    //    private IO io;
+    private RemoteClient remoteClient = null;
     private MainFX mainFX;
     private Serialization serialization;
+    private Converter converter;
 
     private ObservableList<AdornmentExtended> adornmentExtendedList;
 
@@ -69,7 +73,7 @@ public class NewMainScreenController {
     @FXML
     void ItemAddMetal(ActionEvent event) throws IOException {
         root.getScene().getWindow().hide();
-        setScene( "/by/bsuir/german/FXML/AddingMetal.fxml");
+        setScene("/by/bsuir/german/FXML/AddingMetal.fxml");
     }
 
     @FXML
@@ -81,7 +85,7 @@ public class NewMainScreenController {
     @FXML
     void ItemCreateAdornment(ActionEvent event) throws IOException {
         root.getScene().getWindow().hide();
-        setScene( "/by/bsuir/german/FXML/CreateAdornment.fxml");
+        setScene("/by/bsuir/german/FXML/CreateAdornment.fxml");
     }
 
     @FXML
@@ -119,7 +123,7 @@ public class NewMainScreenController {
         setScene("/by/bsuir/german/FXML/MetalsTable.fxml");
     }
 
-    public String getFilePath (){
+    public String getFilePath() {
         final FileChooser fileChooser = new FileChooser();
         Stage stage = (Stage) banner.getScene().getWindow();
         File file = fileChooser.showOpenDialog(stage);
@@ -149,7 +153,7 @@ public class NewMainScreenController {
             Storage storageFull = new Storage(remoteClient.getStones(), remoteClient.getMetals(), remoteClient.getAdornments(),
                     remoteClient.getRingBases(), remoteClient.getNecklaceBases(), remoteClient.getEarringBases());
             String filePath = getFilePath();
-            serialization.serializeStorage(storageFull,filePath);
+            serialization.serializeStorage(storageFull, filePath);
         } catch (IOException e) {
             System.out.println("Ошибка ввода/вывода");
         } catch (NullPointerException e) {
@@ -162,11 +166,13 @@ public class NewMainScreenController {
         setTableValues();
     }
 
-    public void setTableValues (){
+    public void setTableValues() {
         tableAdornments.getItems().clear();
-        remoteClient.fillAdornmentObservableList();
+//        remoteClient.fillAdornmentObservableList();
 
-        adornmentExtendedList = remoteClient.getAdornmentExtendedList();
+        List<Adornment> adornments = remoteClient.getAdornments();
+        adornmentExtendedList = converter.convertArrayListToObservableListA(adornments);
+        
         idTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         idType.setCellValueFactory(new PropertyValueFactory<>("type"));
         idPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
@@ -183,10 +189,11 @@ public class NewMainScreenController {
         initializateVariables();
 
         setTableValues();
-        setTableValues();
+//        setTableValues();
     }
 
     private void initializateVariables() {
+        converter = mainFX.getConverter();
         remoteClient = mainFX.getRemoteClient();
         serialization = mainFX.getSerialization();
     }

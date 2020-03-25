@@ -1,7 +1,6 @@
 package by.bsuir.german.service;
 
 import by.bsuir.german.entity.*;
-import javafx.collections.ObservableList;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -31,7 +30,4 @@ public interface ILogic extends Remote {
 
     List<Stone> searchForTransparence(double start, double finish) throws RemoteException;
 
-    ObservableList<Stone> convertArrayListToObservableListS() throws RemoteException;
-
-    ObservableList<Metal> convertArrayListToObservableListM() throws RemoteException;
 }

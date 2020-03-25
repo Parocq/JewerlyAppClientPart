@@ -11,10 +11,6 @@ public class Serialization {
     private FileOutputStream fileOutputStream;
     private FileInputStream fileInputStream;
 
-//    public Serialization(ObjectOutputStream objectOutputStream, ObjectInputStream objectInputStream){
-//        this.objectInputStream = objectInputStream;
-//        this.objectOutputStream = objectOutputStream;
-//    }
 
     public Serialization() {
     }

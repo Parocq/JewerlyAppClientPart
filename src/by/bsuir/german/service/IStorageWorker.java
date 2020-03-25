@@ -11,12 +11,6 @@ import java.util.List;
 
 public interface IStorageWorker extends Remote {
 
-    void fillAdornmentObservableList() throws RemoteException;
-
-    ObservableList<AdornmentExtended> getAdornmentExtendedList() throws RemoteException;
-
-    void addAdormentExtendedOnStock (AdornmentExtended adornmentExtended) throws RemoteException;
-
     List<Stone> getStones() throws RemoteException;
 
     List<Metal> getMetals() throws RemoteException;

@@ -2,19 +2,20 @@ package by.bsuir.german.controller;
 
 import java.io.*;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import by.bsuir.german.MainFX;
 import by.bsuir.german.entity.Metal;
 import by.bsuir.german.entity.Storage;
 import by.bsuir.german.entity.tabled.AdornmentExtended;
+import by.bsuir.german.service.Converter;
 import by.bsuir.german.service.RemoteClient;
 import by.bsuir.german.service.Serialization;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -28,10 +29,10 @@ import javafx.stage.Stage;
 
 public class MetalsTableController {
 
-    //    private IO io;
     private RemoteClient remoteClient;
     private MainFX mainFX;
     private Serialization serialization;
+    private Converter converter;
 
     private ObservableList<Metal> observableList;
 
@@ -161,14 +162,15 @@ public class MetalsTableController {
     public void setTableValues (){
         tableMetals.getItems().clear();
 
-        observableList = remoteClient.convertArrayListToObservableListM();
+        List<Metal> list = remoteClient.getMetals();
+        observableList = converter.convertArrayListToObservableListM(list);
+
         idTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         idPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         idWeight.setCellValueFactory(new PropertyValueFactory<>("weight"));
         idSample.setCellValueFactory(new PropertyValueFactory<>("sample"));
 
         tableMetals.setItems(observableList);
-//        idTitle.getColumns().clear();
     }
 
     @FXML
@@ -183,6 +185,7 @@ public class MetalsTableController {
     private void initializateVariables() {
         remoteClient = mainFX.getRemoteClient();
         serialization = mainFX.getSerialization();
+        converter = mainFX.getConverter();
     }
 
     private void setScene(String fileLocation) {

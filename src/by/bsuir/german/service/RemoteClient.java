@@ -1,17 +1,13 @@
 package by.bsuir.german.service;
 
 import by.bsuir.german.entity.*;
-import by.bsuir.german.entity.tabled.AdornmentExtended;
 import by.bsuir.german.interfaces.ITitle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class RemoteClient implements IRemoteServer {
@@ -20,7 +16,7 @@ public class RemoteClient implements IRemoteServer {
 
     public RemoteClient() {
         try {
-            Registry registry = LocateRegistry.getRegistry("IP of host");
+            Registry registry = LocateRegistry.getRegistry("localhost");
             myReestr = (IRemoteServer) registry.lookup("String");
         } catch (RemoteException | NotBoundException e) {
             e.printStackTrace();
@@ -125,7 +121,7 @@ public class RemoteClient implements IRemoteServer {
     public List<Stone> searchForTransparence(double start, double finish) {
         List<Stone> list = new ArrayList<>();
         try {
-            myReestr.searchForTransparence(start,finish);
+            myReestr.searchForTransparence(start, finish);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -133,61 +129,10 @@ public class RemoteClient implements IRemoteServer {
     }
 
     @Override
-    public ObservableList<Stone> convertArrayListToObservableListS() {
-        ObservableList<Stone> observableList = FXCollections.observableArrayList();
-        try {
-            myReestr.convertArrayListToObservableListS();
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-        return  observableList;
-    }
-
-    @Override
-    public ObservableList<Metal> convertArrayListToObservableListM() {
-        ObservableList<Metal> observableList = FXCollections.observableArrayList();
-        try {
-            myReestr.convertArrayListToObservableListM();
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-        return observableList;
-    }
-
-    @Override
-    public void fillAdornmentObservableList() {
-        try {
-            myReestr.fillAdornmentObservableList();
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public ObservableList<AdornmentExtended> getAdornmentExtendedList() {
-        ObservableList<AdornmentExtended> observableList = FXCollections.observableArrayList();
-        try {
-            myReestr.getAdornmentExtendedList();
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-        return observableList;
-    }
-
-    @Override
-    public void addAdormentExtendedOnStock(AdornmentExtended adornmentExtended) {
-        try {
-            myReestr.addAdormentExtendedOnStock(adornmentExtended);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
     public List<Stone> getStones() {
         List<Stone> list = new ArrayList<>();
         try {
-            myReestr.getStones();
+            list = myReestr.getStones();
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -198,7 +143,7 @@ public class RemoteClient implements IRemoteServer {
     public List<Metal> getMetals() {
         List<Metal> list = new ArrayList<>();
         try {
-            myReestr.getMetals();
+            list = myReestr.getMetals();
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -209,7 +154,7 @@ public class RemoteClient implements IRemoteServer {
     public List<Adornment> getAdornments() {
         List<Adornment> list = new ArrayList<>();
         try {
-            myReestr.getAdornments();
+            list = myReestr.getAdornments();
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -220,7 +165,7 @@ public class RemoteClient implements IRemoteServer {
     public List<RingBase> getRingBases() {
         List<RingBase> list = new ArrayList<>();
         try {
-            myReestr.getRingBases();
+            list = myReestr.getRingBases();
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -231,7 +176,7 @@ public class RemoteClient implements IRemoteServer {
     public List<NecklaceBase> getNecklaceBases() {
         List<NecklaceBase> list = new ArrayList<>();
         try {
-            myReestr.getNecklaceBases();
+            list = myReestr.getNecklaceBases();
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -242,7 +187,7 @@ public class RemoteClient implements IRemoteServer {
     public List<EarringBase> getEarringBases() {
         List<EarringBase> list = new ArrayList<>();
         try {
-            myReestr.getEarringBases();
+            list = myReestr.getEarringBases();
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -307,7 +252,7 @@ public class RemoteClient implements IRemoteServer {
     public String getTitles(List<? extends ITitle> objects) {
         String s = null;
         try {
-            myReestr.getTitles(objects);
+            s = myReestr.getTitles(objects);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -327,7 +272,7 @@ public class RemoteClient implements IRemoteServer {
     public String getAdormentTitles() {
         String s = null;
         try {
-            myReestr.getAdormentTitles();
+            s = myReestr.getAdormentTitles();
         } catch (RemoteException e) {
             e.printStackTrace();
         }

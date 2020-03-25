@@ -2,11 +2,13 @@ package by.bsuir.german.controller;
 
 import java.io.*;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import by.bsuir.german.MainFX;
 import by.bsuir.german.entity.Stone;
 import by.bsuir.german.entity.Storage;
+import by.bsuir.german.service.Converter;
 import by.bsuir.german.service.RemoteClient;
 import by.bsuir.german.service.Serialization;
 import javafx.collections.ObservableList;
@@ -30,6 +32,7 @@ public class StonesTableController {
     private RemoteClient remoteClient;
     private MainFX mainFX;
     private Serialization serialization;
+    private Converter converter;
 
     private ObservableList<Stone> stonesExtendedList;
 
@@ -164,7 +167,11 @@ public class StonesTableController {
     public void setTableValues (){
         tableAdornments.getItems().clear();
 
-        stonesExtendedList = remoteClient.convertArrayListToObservableListS();
+//        stonesExtendedList = remoteClient.convertArrayListToObservableListS();
+
+        List<Stone> list = remoteClient.getStones();
+        stonesExtendedList = converter.convertArrayListToObservableListS(list);
+
         idTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         idType.setCellValueFactory(new PropertyValueFactory<>("stoneType"));
         idPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
@@ -188,6 +195,7 @@ public class StonesTableController {
     private void initializateVariables() {
         remoteClient = mainFX.getRemoteClient();
         serialization = mainFX.getSerialization();
+        converter = mainFX.getConverter();
     }
 
     private void setScene(String fileLocation) {
